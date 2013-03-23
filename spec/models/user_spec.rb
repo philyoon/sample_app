@@ -109,4 +109,15 @@ describe User do
     before { @user.password = @user.password_confirmation = "a"*5 }
     it { should be_invalid }
   end
+
+  describe 'should downcast email when saving' do
+    before do
+      @user.email = 'USER@EXAMPLE.COM'
+      @user.save
+    end
+
+    it "should get a downcasted email" do
+      @user.email.should eq('user@example.com')
+    end
+  end
 end
