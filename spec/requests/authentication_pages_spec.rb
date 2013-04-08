@@ -14,6 +14,14 @@ describe "Authentication" do
   describe "signin" do
     before { visit signin_path }
 
+    describe 'before sign in' do
+      it { should_not have_link 'Users'        , href:users_path }
+      it { should_not have_link 'Profile' }
+      it { should_not have_link 'Settings' }
+      it { should_not have_link 'Sign out'     , href:signout_path }
+      it { should have_link     'Sign in'      , href:signin_path }
+    end
+
     describe "with invalid information" do
       before { click_button 'Sign in' }
 
