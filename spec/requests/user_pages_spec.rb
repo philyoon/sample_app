@@ -149,4 +149,26 @@ describe "User Pages" do
       specify { user.reload.email.should == new_email }
     end
   end
+
+  describe "signed in user can't access signup page" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      sign_in user
+      visit signup_path
+    end
+
+    it { should_not have_selector 'title', text:full_title('Sign up') }
+  end
+
+  describe "signed in user can't access create action" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before do
+      sign_in user
+      post_via_redirect '/users'
+    end
+
+    it { should_not have_selector 'title', text:full_title('Sign up') }
+  end
 end
