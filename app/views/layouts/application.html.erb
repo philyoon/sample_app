@@ -16,6 +16,10 @@
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= debug(params) if Rails.env.development? %>
+    <br/>
+    <% if Rails.env.development? %>
+      Full path: <%= request.fullpath %>, method: <%= request.method %>
+    <% end %>
   </div>
 </body>
 </html>
